@@ -79,3 +79,16 @@
 
 4. Instalación de VirtualBox Guest additions
 >![vb-guestadditions-winxp](images/winxp/guest-additions.png)
+
+---
+### Metasploitable
+## Evidencias de Metasploitable :warning:
+
+1. Instalación
+>![instalacion-meta](images/metasploitable/instalacion.png)
+
+2. Conectividad entre metasploitable y
+    * Windows XP
+>>>![conect-winxp](images/metasploitable/conectividad-winxp.png)
+    * SmoothWall
+>>>![conect-sw](images/metasploitable/conectividad-sw.png)
