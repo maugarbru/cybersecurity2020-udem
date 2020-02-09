@@ -1,16 +1,17 @@
-# cybersecurity2020-udem :computer: :calling:
+# cybersecurity2020-udem :computer::calling:
 Repo para curso Ciberseguridad 2020.
 
-### Integrantes: :busts_in_silhouette:
-- Mauricio Garzón Brunal
-- Esteban Bedoya Giraldo
+### :busts_in_silhouette: Integrantes:
+> - Mauricio Garzón Brunal
+> - Esteban Bedoya Giraldo
 
 
 ---
-## Práctica #1 :bookmark_tabs:
-Link a la evidencia de la práctica,[aquí](/practica1/README.md) :link:
+## :bookmark_tabs: Práctica #1 
+Evidencia de la práctica, [AQUÍ :link:](/practica1/README.md) 
 
-> Objetivos:
->> Construir un ambiente de laboratorio.
->> Reforzar algunos conceptos de Telemática.
->> Familiarizarse con algunas herramientas de seguridad.
+### Objetivos:
+> - Construir un ambiente de laboratorio.
+> - Reforzar algunos conceptos de Telemática.
+> - Familiarizarse con algunas herramientas de seguridad.
+---
