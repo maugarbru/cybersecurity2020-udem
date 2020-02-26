@@ -15,3 +15,13 @@ Evidencia de la práctica, [AQUÍ :link:](/practica1/README.md)
 > - Reforzar algunos conceptos de Telemática.
 > - Familiarizarse con algunas herramientas de seguridad.
 ---
+
+---
+## :bookmark_tabs: Trabajo Control de CIS Entregable#1 
+Informe requeridos para el control y la herramienta, [AQUÍ :link:](/trabajoCIS/README.md) 
+
+### Objetivos:
+> - Profundizar los conocimientos en controles de seguridad
+> - Familiarizarse con las mejores prácticas en seguridad
+> - Familiarizarse con la aplicación de controles de seguridad
+---
