@@ -38,7 +38,7 @@
 ## Información privada
 
 ### Fierce
-> - Archivo con el resultado del fierce: [AQUÍ :link:](/Fierce.txt) 
+> - Archivo con el resultado del fierce: [AQUÍ :link:](practica2/Fierce.txt) 
 
 ### Shodan.io
 
