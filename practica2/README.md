@@ -37,24 +37,40 @@
 
 ## Información privada
 
-### Fierce y Shodan.io
+### Fierce
+> - Archivo con el resultado del fierce: [AQUÍ :link:](/Fierce.txt) 
+
+### Shodan.io
 
 > - https://www.shodan.io/host/52.34.117.10
 > - https://www.shodan.io/host/34.218.92.107
 > - https://www.shodan.io/host/52.34.117.121
 > - https://www.shodan.io/host/34.218.92.254
 
-34.218.92.107 -sT
+### Full
+> ![1](images/full/full1.png) 
+> ![2](images/full/full2.png) 
+> ![3](images/full/full3.png) 
 
-> ![34.218.92.107 -sT](images/empresa1.png)
+### Half
+> ![1](images/half/half1.png) 
+> ![2](images/half/half2.png) 
+> ![3](images/half/half3.png) 
 
-52.34.117.10 -sT
+### Ack prove
+> ![1](images/ack_prove/ack1.png) 
+> ![2](images/ack_prove/ack2.png) 
+> ![3](images/ack_prove/ack3.png) 
 
-> ![52.34.117.10 -sT](images/empresa2.png)
+### Inverse
+> ![1](images/inverse/inverse1.png) 
+> ![2](images/inverse/inverse2.png) 
+> ![3](images/inverse/inverse3.png) 
 
-52.34.117.121 -ST
-
-> ![52.34.117.121 -ST](images/empresa3.png)
+### Grabbing
+> ![1](images/grabbing/grabbing1.png) 
+> ![2](images/grabbing/grabbing2.png) 
+> ![3](images/grabbing/grabbing3.png) 
 
 ### Attack
 
@@ -64,17 +80,17 @@
 
 Ataque sin usuario
 
-> ![1](images/captura1.png) 
-> ![2](images/captura2.png) 
-> ![3](images/captura3.png) 
-> ![4](images/captura4.png)
+> ![1](images/attack/captura1.png) 
+> ![2](images/attack/captura2.png) 
+> ![3](images/attack/captura3.png) 
+> ![4](images/attack/captura4.png)
 
 Ataque con usuario
 
-> ![7](images/captura5.png) 
-> ![8](images/captura6.png) 
-> ![9](images/captura7.png) 
-> ![10](images/captura8.png)
+> ![7](images/attack/captura5.png) 
+> ![8](images/attack/captura6.png) 
+> ![9](images/attack/captura7.png) 
+> ![10](images/attack/captura8.png)
 
 ### Contraseñas.txt
 
