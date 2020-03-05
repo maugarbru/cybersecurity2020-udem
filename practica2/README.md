@@ -4,9 +4,12 @@
 
 - [Información pública de la empresa](#public)
   - CloudKnox
-- [Información privada](#private)
 
-  - Públicamente accesible
+- [Información privada (_públicamente accesible_)](#private)
+  - Fierce
+  - Shodan.io
+  - Proceso
+  - Conclusión
 
 - [Ataques](#attack)
   - Imágenes de del proceso
@@ -41,7 +44,6 @@
 > - Archivo con el resultado del fierce: [AQUÍ :link:](./Fierce.txt) 
 
 ### Shodan.io
-
 > - https://www.shodan.io/host/52.34.117.10
 > - https://www.shodan.io/host/34.218.92.107
 > - https://www.shodan.io/host/52.34.117.121
@@ -71,6 +73,10 @@
 > ![1](images/grabbing/grabbing1.png) 
 > ![2](images/grabbing/grabbing2.png) 
 > ![3](images/grabbing/grabbing3.png) 
+
+### Conclusión
+¿Se puede concluir algo acerca de la postura de seguridad de cada empresa a partir de la información encontrada?
+> _En un enfoque general se puede conluir que esta empresa tiene una seguirdad bastante buena, siendo una de las empresas que le brinda ciberseguridad a amazon web service (AWS) no se esperaba menos con tal responsabilidad. En la búsqueda de información mas personale se pudo encontrar varios perfiles en linkedin de empleados pero nada masa allá que sus simples perfiles laborales, sus datos financieros son muy reservados por ende no se pudo encontrar mucha información al respecto._
 
 ### Attack
 
