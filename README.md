@@ -31,9 +31,9 @@ Informe requeridos para el control y la herramienta, [AQUÍ :link:](/trabajoCIS/
 Evidencia de la práctica, [AQUÍ :link:](/practica2/README.md) 
 
 ### Objetivos:
-> - 1.Poner en práctica los conocimientos teóricos
-> - 2.Practicar las metodologías de obtención de información pública.
-> - 3.Practicar las metodologías de escaneo de redes
-> - 4.Practicar las metodologías para explotar vulnerabilidades.
-> - 5.Practicar las metodologías para encontrar contraseñas.
+> - 1. Poner en práctica los conocimientos teóricos
+> - 2. Practicar las metodologías de obtención de información pública.
+> - 3. Practicar las metodologías de escaneo de redes
+> - 4. Practicar las metodologías para explotar vulnerabilidades.
+> - 5. Practicar las metodologías para encontrar contraseñas.
 ---
