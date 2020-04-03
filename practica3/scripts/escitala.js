@@ -33,7 +33,7 @@ class Escitala {
             }
         }
         var json = {
-            texto: resultado,
+            texto: resultado.trim(),
             matriz: matriz
         }
         return json
@@ -66,7 +66,7 @@ class Escitala {
             }
         }
         var json = {
-            texto: resultado,
+            texto: resultado.trim(),
             matriz: matriz
         }
         return json
