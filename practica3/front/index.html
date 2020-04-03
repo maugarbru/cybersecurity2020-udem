@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-content>
+          <v-toolbar dark prominent src="https://bit.ly/3dNQz1X">
+            <v-spacer></v-spacer>
+            <v-toolbar-title style="text-shadow: 3px 3px 5px black;"
+              ><h1>Práctica 3</h1>
+              <h4 class="grey--text">
+                Esteban Bedoya - Mauricio Garzón
+              </h4></v-toolbar-title
+            >
+
+            <v-spacer></v-spacer>
+          </v-toolbar>
+
+          <v-container>
+            <v-toolbar dark>
+              <v-toolbar-title style="text-shadow: 3px 3px 5px black;"
+                ><h2>Criptografía Moderna</h2>
+              </v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn v-if="selected" text @click="seleccionar(1)">
+                De texto
+                <v-icon small color="primary">mdi-text</v-icon>
+              </v-btn>
+              <v-btn v-if="selected" text @click="seleccionar(2)">
+                De archivos
+                <v-icon small color="primary">mdi-file</v-icon>
+              </v-btn>
+            </v-toolbar>
+            <v-card color="grey lighten-3">
+              <v-card-text v-if="selected">
+                <v-card class="mx-auto" v-if="type == 1">
+                  <v-card-title
+                    class="primary white--text"
+                    style="text-shadow: 3px 3px 5px black;"
+                  >
+                    <v-spacer></v-spacer>
+                    <h3>Criptografía de texto</h3>
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-tabs
+                      v-model="tab"
+                      background-color="transparent"
+                      color="primary"
+                      grow
+                    >
+                      <v-tab>
+                        Escitala
+                      </v-tab>
+                      <v-tab>
+                        Vigenere
+                      </v-tab>
+                    </v-tabs>
+
+                    <v-tabs-items v-model="tab">
+                      <v-tab-item>
+                        <v-card flat>
+                          <v-card-title class="text-center justify-center py-6">
+                            <h3 class="font-weight-bold display-3 basil--text">
+                              Escítala
+                            </h3>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-form ref="form1" v-model="valid" lazy-validation>
+                              <v-text-field
+                                v-model="escitala.text"
+                                label="Ingresar texto cifrado"
+                                :rules="rules"
+                                filled
+                                required
+                              ></v-text-field>
+                              <v-text-field
+                                v-model="escitala.key"
+                                label="Ingresar llave"
+                                :rules="rules"
+                                filled
+                                required
+                              ></v-text-field>
+                            </v-form>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="runEscitala()" large color="primary"
+                              >Descifrar
+                              <v-icon right dark>mdi-check</v-icon>
+                            </v-btn>
+                            <v-btn @click="resetEscitala()"
+                              >Resetear
+                              <v-icon right>mdi-autorenew</v-icon>
+                            </v-btn>
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-tab-item>
+                      <v-tab-item>
+                        <v-card flat>
+                          <v-card-title class="text-center justify-center py-6">
+                            <h3 class="font-weight-bold display-3 basil--text">
+                              Vigenere
+                            </h3>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-form ref="form2" v-model="valid" lazy-validation>
+                              <v-text-field
+                                v-model="vigenere"
+                                label="Ingresar texto cifrado"
+                                :rules="rules"
+                                filled
+                                required
+                              ></v-text-field>
+                            </v-form>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="runVigenere()" large color="primary"
+                              >Descifrar
+                              <v-icon right dark>mdi-check</v-icon>
+                            </v-btn>
+                            <v-btn @click="resetVigenere()"
+                              >Resetear
+                              <v-icon right>mdi-autorenew</v-icon>
+                            </v-btn>
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-tab-item>
+                    </v-tabs-items>
+                  </v-card-text>
+                </v-card>
+                <v-card class="mx-auto" v-if="type == 2">
+                  <v-card-title
+                    class="primary white--text"
+                    style="text-shadow: 3px 3px 5px black;"
+                  >
+                    <v-spacer></v-spacer>
+                    <h3>Criptografía de archivos</h3>
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-card-text>
+                    <p>adjective</p>
+                    <div class="text--primary">
+                      well meaning and kindly.<br />
+                      "a benevolent smile"
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-card-text>
+              <v-card-text v-if="!selected">
+                <v-card class="mx-auto">
+                  <v-card-text align="center">
+                    <h3 class="error--text">Escoja una opción</h3>
+                    <v-container>
+                      <v-btn
+                        @click="seleccionar(1)"
+                        large
+                        outlined
+                        color="primary"
+                      >
+                        De texto
+                        <v-icon>mdi-text</v-icon>
+                      </v-btn>
+                      <v-btn
+                        @click="seleccionar(2)"
+                        large
+                        outlined
+                        color="primary"
+                      >
+                        De archivos
+                        <v-icon>mdi-file</v-icon>
+                      </v-btn>
+                    </v-container>
+                  </v-card-text>
+                </v-card>
+              </v-card-text>
+            </v-card>
+          </v-container>
+        </v-content>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify({
+          theme: {
+            themes: {
+              light: {
+                primary: "#2E7D32"
+              }
+            }
+          }
+        }),
+        data: {
+          selected: false,
+          tab: 0,
+          type: null,
+          escitala: {
+            text: "",
+            key: ""
+          },
+          vigenere: "",
+          valid: false,
+          rules: [v => !!v || "Este campo es requerido"]
+        },
+        methods: {
+          seleccionar(numero) {
+            this.selected = true;
+            this.type = numero;
+          },
+
+          runEscitala() {
+            if (this.$refs.form1.validate()) {
+            }
+          },
+          resetEscitala() {
+            this.$refs.form1.reset();
+          },
+
+          runVigenere() {
+            if (this.$refs.form2.validate()) {
+            }
+          },
+          resetVigenere() {
+            this.$refs.form2.reset();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
