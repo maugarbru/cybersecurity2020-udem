@@ -86,7 +86,7 @@
                             <v-form ref="form1" v-model="valid" lazy-validation>
                               <v-text-field
                                 v-model="escitala.text"
-                                label="Ingresar texto cifrado"
+                                label="Ingresar texto"
                                 :rules="rules"
                                 filled
                                 required
@@ -109,9 +109,20 @@
                               <v-icon right>mdi-autorenew</v-icon>
                             </v-btn>
                             <v-spacer></v-spacer>
-                            <v-btn @click="runEscitala()" large color="primary"
+                            <v-btn
+                              @click="runEscitala(true)"
+                              large
+                              outlined
+                              color="primary"
+                              >Cifrar
+                              <v-icon right dark>mdi-lock</v-icon>
+                            </v-btn>
+                            <v-btn
+                              @click="runEscitala(false)"
+                              large
+                              color="primary"
                               >Descifrar
-                              <v-icon right dark>mdi-check</v-icon>
+                              <v-icon right dark>mdi-lock-open</v-icon>
                             </v-btn>
                             <v-spacer></v-spacer>
                           </v-card-actions>
@@ -187,15 +198,15 @@
                   >
                     <v-row>
                       <v-col>
-                        <h1 class="white--text">Texto descifrado:</h1>
-                        <v-container>
-                          <h2>
-                            "{{result.text}}"
+                        <h2 class="white--text">Texto:</h2>
+                        <v-container
+                          ><h2 >
+                            <pre style="font-family: 'Courier New', Courier, monospace;">"{{result.text}}"</pre>
                           </h2>
                         </v-container>
                       </v-col>
                       <v-col>
-                        <h1 class="white--text">Matriz:</h1>
+                        <h2 class="white--text">Matriz:</h2>
                         <v-container>
                           <h2
                             class="mb-1"
@@ -296,12 +307,16 @@
             this.type = numero;
           },
 
-          async runEscitala() {
+          async runEscitala(tipo) {
             if (this.$refs.form1.validate()) {
               this.loading = true;
               var response = {};
               try {
-                url = `${this.api}/escitala?text=${this.escitala.text}&key=${this.escitala.key}`;
+                if (tipo == true) {
+                  url = `${this.api}/escitala/cifrar?text=${this.escitala.text}&key=${this.escitala.key}`;
+                } else {
+                  url = `${this.api}/escitala/descifrar?text=${this.escitala.text}&key=${this.escitala.key}`;
+                }
                 response = await axios.get(url);
                 this.result.valid = true;
                 this.result.text = response.data.texto;
