@@ -447,7 +447,7 @@
                   data.paso = paso.numero;
                   response = await axios.post(url, data);
                   this.stepper = paso.numero;
-                  this.resultVigenere.pasos.push(response.info);
+                  this.resultVigenere.pasos.push(response.data);
                 }
                 this.loading = false;
               } catch (error) {
