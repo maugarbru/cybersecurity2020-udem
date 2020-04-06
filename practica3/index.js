@@ -56,17 +56,15 @@ app.post('/vigenere', (req, res) => {
     var data = req.body
     var paso = data.paso
     var info = data.info
+    var mcd = data.mcd
     console.log("---------------------------");
     console.log("... EJECUTANDO VIGENERE ...");
     switch (paso) {
         case 1:
             console.log(`--- Paso 1: Detectar repetidas ---`);
             vigenere.detectarRepetidas(info).then(response => {
-                setTimeout(() => {
-                    res.status(200).send(response)
-                }, 2000)
-
-                console.log(`Resultado ->> "${response}"`);
+                res.status(200).send(response)
+                console.log(`Resultado ->> "MCD: ${response.mcd}"`);
             }).catch(error => {
                 res.status(400).send(error)
                 console.log(error);
@@ -75,7 +73,7 @@ app.post('/vigenere', (req, res) => {
 
         case 2:
             console.log(`--- Paso 2: Dividir Texto ---`);
-            vigenere.dividirTexto(info).then(response => {
+            vigenere.dividirTexto(info, mcd).then(response => {
                 setTimeout(() => {
                     res.status(200).send(response)
                 }, 2000)

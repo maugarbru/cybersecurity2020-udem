@@ -232,9 +232,9 @@
                   >
                     <v-row>
                       <v-col>
-                        <h2 class="white--text">Texto:</h2>
+                        <h3 class="white--text">Texto:</h3>
                         <v-container
-                          ><h2>
+                          ><h4>
                             <pre
                               style="
                                 font-family: 'Courier New', Courier, monospace;
@@ -242,19 +242,19 @@
                             >
   "{{resultEscitala.text}}"</pre
                             >
-                          </h2>
+                          </h4>
                         </v-container>
                       </v-col>
                       <v-col>
-                        <h2 class="white--text">Matriz:</h2>
+                        <h3 class="white--text">Matriz:</h3>
                         <v-container>
-                          <h2
+                          <h4
                             class="mb-1"
                             v-for="(row, index) in resultEscitala.matrix"
                             :key="index"
                           >
                             {{row}}
-                          </h2>
+                          </h4>
                         </v-container>
                       </v-col>
                     </v-row>
@@ -282,10 +282,40 @@
 
                           <v-stepper-content :step="paso.numero">
                             <v-card class="black green--text">
-                              <v-card-title
-                                >{{resultVigenere.pasos[paso.numero -
-                                1]}}</v-card-title
-                              >
+                              <v-card-text v-if="paso.numero == 1">
+                                <v-row v-if="resultVigenere.pasos[0]">
+                                  <v-col>
+                                    <h3 class="white--text">Repetidos:</h3>
+                                    <v-container
+                                      ><h4
+                                        class="mb-1 green--text"
+                                        v-for="(row, index) in resultVigenere.pasos[0].result"
+                                        :key="index"
+                                      >
+                                        "{{row.cadena}}" - {{row.espacio}}
+                                        espacios
+                                      </h4>
+                                    </v-container>
+                                  </v-col>
+                                  <v-col>
+                                    <h3 class="white--text">
+                                      Máximo común divisor:
+                                    </h3>
+                                    <v-container class="green--text">
+                                      <h4>mcd({{espaciosSinRepetir(resultVigenere.pasos[0].result)}}) = {{resultVigenere.pasos[0].mcd}}</h4>
+                                    </v-container>
+                                  </v-col>
+                                </v-row>
+                              </v-card-text>
+                              <v-card-text v-if="paso.numero == 2"
+                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                              </v-card-text>
+                              <v-card-text v-if="paso.numero == 3"
+                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                              </v-card-text>
+                              <v-card-text v-if="paso.numero == 4"
+                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                              </v-card-text>
                               <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn
@@ -334,6 +364,7 @@
         }),
         data: {
           api: "http://localhost:3000",
+          // api: "http://192.168.0.12:3000",
           selected: false,
           tab: 0,
           type: null,
@@ -446,8 +477,9 @@
                   const paso = this.pasosVigenere[index];
                   data.paso = paso.numero;
                   response = await axios.post(url, data);
-                  this.stepper = paso.numero;
                   this.resultVigenere.pasos.push(response.data);
+                  this.stepper = paso.numero;
+                  data.mcd = response.data.mcd
                 }
                 this.loading = false;
               } catch (error) {
@@ -463,6 +495,15 @@
             };
             this.$refs.form2.reset();
           },
+          espaciosSinRepetir(espacios) {
+            var arrayTemp = []
+            espacios.forEach(element => {
+              if (arrayTemp.indexOf(element.espacio) == -1) {
+                arrayTemp.push(element.espacio)
+              }
+            });
+            return arrayTemp.join(",")
+          }
         },
       });
     </script>
