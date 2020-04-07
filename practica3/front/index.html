@@ -302,13 +302,31 @@
                                       Máximo común divisor:
                                     </h3>
                                     <v-container class="green--text">
-                                      <h4>mcd({{espaciosSinRepetir(resultVigenere.pasos[0].result)}}) = {{resultVigenere.pasos[0].mcd}}</h4>
+                                      <h4>
+                                        mcd({{espaciosSinRepetir(resultVigenere.pasos[0].result)}})
+                                        = {{resultVigenere.pasos[0].mcd}}
+                                      </h4>
                                     </v-container>
                                   </v-col>
                                 </v-row>
                               </v-card-text>
-                              <v-card-text v-if="paso.numero == 2"
-                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                              <v-card-text v-if="paso.numero == 2">
+                                <v-row v-if="resultVigenere.pasos[1]">
+                                  <v-col>
+                                    <h3 class="white--text">
+                                      Subtextos:
+                                    </h3>
+                                    <v-container
+                                      ><h4
+                                        class="mb-1 green--text"
+                                        v-for="(row, index) in resultVigenere.pasos[1].subtextos"
+                                        :key="index"
+                                      >
+                                        "{{row}}"
+                                      </h4>
+                                    </v-container>
+                                  </v-col>
+                                </v-row>
                               </v-card-text>
                               <v-card-text v-if="paso.numero == 3"
                                 >{{resultVigenere.pasos[paso.numero - 1]}}
@@ -479,7 +497,11 @@
                   response = await axios.post(url, data);
                   this.resultVigenere.pasos.push(response.data);
                   this.stepper = paso.numero;
-                  data.mcd = response.data.mcd
+                  if (index == 0) {
+                    data.mcd = response.data.mcd;
+                  } else if (index == 1) {
+                    data.subtextos = response.data.subtextos
+                  }
                 }
                 this.loading = false;
               } catch (error) {
@@ -496,14 +518,14 @@
             this.$refs.form2.reset();
           },
           espaciosSinRepetir(espacios) {
-            var arrayTemp = []
-            espacios.forEach(element => {
+            var arrayTemp = [];
+            espacios.forEach((element) => {
               if (arrayTemp.indexOf(element.espacio) == -1) {
-                arrayTemp.push(element.espacio)
+                arrayTemp.push(element.espacio);
               }
             });
-            return arrayTemp.join(",")
-          }
+            return arrayTemp.join(",");
+          },
         },
       });
     </script>

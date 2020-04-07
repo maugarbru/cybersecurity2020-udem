@@ -55,16 +55,17 @@ app.get('/escitala/cifrar', (req, res) => {
 app.post('/vigenere', (req, res) => {
     var data = req.body
     var paso = data.paso
-    var info = data.info
-    var mcd = data.mcd
     console.log("---------------------------");
     console.log("... EJECUTANDO VIGENERE ...");
     switch (paso) {
         case 1:
+            var info = data.info
             console.log(`--- Paso 1: Detectar repetidas ---`);
             vigenere.detectarRepetidas(info).then(response => {
-                res.status(200).send(response)
-                console.log(`Resultado ->> "MCD: ${response.mcd}"`);
+                setTimeout(() => {
+                    res.status(200).send(response)
+                }, 1500)
+                console.log(`Resultado ->> "OK" -> MCD: ${response.mcd}`);
             }).catch(error => {
                 res.status(400).send(error)
                 console.log(error);
@@ -72,12 +73,14 @@ app.post('/vigenere', (req, res) => {
             break;
 
         case 2:
+            var info = data.info
+            var mcd = data.mcd
             console.log(`--- Paso 2: Dividir Texto ---`);
             vigenere.dividirTexto(info, mcd).then(response => {
                 setTimeout(() => {
                     res.status(200).send(response)
-                }, 2000)
-                console.log(`Resultado ->> "${response}"`);
+                }, 2500)
+                console.log(`Resultado ->> "OK" -> Subtextos: ${response.cantidad}`);
             }).catch(error => {
                 res.status(400).send(error)
                 console.log(error);
@@ -85,11 +88,12 @@ app.post('/vigenere', (req, res) => {
             break;
 
         case 3:
+            var subtextos = data.subtextos
             console.log(`--- Paso 3: Ataque Estadistico ---`);
-            vigenere.ataqueEstadistico(info).then(response => {
+            vigenere.ataqueEstadistico(subtextos).then(response => {
                 setTimeout(() => {
                     res.status(200).send(response)
-                }, 2000)
+                }, 2500)
                 console.log(`Resultado ->> "${response}"`);
             }).catch(error => {
                 res.status(400).send(error)
@@ -102,7 +106,7 @@ app.post('/vigenere', (req, res) => {
             vigenere.desencriptar(info).then(response => {
                 setTimeout(() => {
                     res.status(200).send(response)
-                }, 2000)
+                }, 2500)
                 console.log(`Resultado ->> "${response}"`);
             }).catch(error => {
                 res.status(400).send(error)
