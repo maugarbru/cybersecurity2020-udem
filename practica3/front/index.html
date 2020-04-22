@@ -329,10 +329,36 @@
                                 </v-row>
                               </v-card-text>
                               <v-card-text v-if="paso.numero == 3"
-                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                                ><v-row v-if="resultVigenere.pasos[2]">
+                                  <v-col>
+                                    <h3 class="white--text">
+                                      Clave encontrada:
+                                    </h3>
+                                    <v-container
+                                      ><h4
+                                        class="mb-1 green--text"
+                                      >
+                                        "{{resultVigenere.pasos[2].clave}}"
+                                      </h4>
+                                    </v-container>
+                                  </v-col>
+                                </v-row>
                               </v-card-text>
                               <v-card-text v-if="paso.numero == 4"
-                                >{{resultVigenere.pasos[paso.numero - 1]}}
+                                ><v-row v-if="resultVigenere.pasos[3]">
+                                  <v-col>
+                                    <h3 class="white--text">
+                                      Texto descifrado:
+                                    </h3>
+                                    <v-container
+                                      ><h4
+                                        class="mb-1 green--text"
+                                      >
+                                        "{{resultVigenere.pasos[3].descifrado}}"
+                                      </h4>
+                                    </v-container>
+                                  </v-col>
+                                </v-row>
                               </v-card-text>
                               <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -481,6 +507,7 @@
             if (this.$refs.form2.validate()) {
               this.result = true;
               this.resultVigenere.valid = true;
+              this.resultVigenere.pasos = [];
               this.stepper = 0;
               this.loading = true;
               var data = { info: this.vigenere };
@@ -501,6 +528,8 @@
                     data.mcd = response.data.mcd;
                   } else if (index == 1) {
                     data.subtextos = response.data.subtextos
+                  } else if (index == 2) {
+                    data.clave = response.data.clave
                   }
                 }
                 this.loading = false;

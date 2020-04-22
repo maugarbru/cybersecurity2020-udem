@@ -62,9 +62,7 @@ app.post('/vigenere', (req, res) => {
             var info = data.info
             console.log(`--- Paso 1: Detectar repetidas ---`);
             vigenere.detectarRepetidas(info).then(response => {
-                setTimeout(() => {
-                    res.status(200).send(response)
-                }, 1500)
+                res.status(200).send(response)
                 console.log(`Resultado ->> "OK" -> MCD: ${response.mcd}`);
             }).catch(error => {
                 res.status(400).send(error)
@@ -77,9 +75,7 @@ app.post('/vigenere', (req, res) => {
             var mcd = data.mcd
             console.log(`--- Paso 2: Dividir Texto ---`);
             vigenere.dividirTexto(info, mcd).then(response => {
-                setTimeout(() => {
-                    res.status(200).send(response)
-                }, 2500)
+                res.status(200).send(response)
                 console.log(`Resultado ->> "OK" -> Subtextos: ${response.cantidad}`);
             }).catch(error => {
                 res.status(400).send(error)
@@ -91,10 +87,8 @@ app.post('/vigenere', (req, res) => {
             var subtextos = data.subtextos
             console.log(`--- Paso 3: Ataque Estadistico ---`);
             vigenere.ataqueEstadistico(subtextos).then(response => {
-                setTimeout(() => {
-                    res.status(200).send(response)
-                }, 2500)
-                console.log(`Resultado ->> "${response}"`);
+                res.status(200).send(response)
+                console.log(`Resultado ->> "Clave encontrada: ${response.clave}"`);
             }).catch(error => {
                 res.status(400).send(error)
                 console.log(error);
@@ -102,12 +96,12 @@ app.post('/vigenere', (req, res) => {
             break;
 
         case 4:
+            var info = data.info
+            var clave = data.clave
             console.log(`--- Paso 4: Desencriptar ---`);
-            vigenere.desencriptar(info).then(response => {
-                setTimeout(() => {
-                    res.status(200).send(response)
-                }, 2500)
-                console.log(`Resultado ->> "${response}"`);
+            vigenere.desencriptar(info, clave).then(response => {
+                res.status(200).send(response)
+                console.log(`Resultado ->> "${response.descifrado}"`);
             }).catch(error => {
                 res.status(400).send(error)
                 console.log(error);
