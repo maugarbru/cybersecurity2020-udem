@@ -88,6 +88,7 @@
                                 v-model="escitala.text"
                                 label="Ingresar texto"
                                 :rules="rules"
+                                prepend-icon="mdi-text"
                                 filled
                                 required
                               ></v-text-field>
@@ -96,6 +97,7 @@
                                 type="number"
                                 min="1"
                                 label="Ingresar llave"
+                                prepend-icon="mdi-lock"
                                 :rules="rulesKey"
                                 filled
                                 required
@@ -144,6 +146,7 @@
                                   :rules="rules"
                                   filled
                                   label="Ingresar texto cifrado"
+                                  prepend-icon="mdi-text"
                                   auto-grow
                                 ></v-textarea>
                               </v-container>
@@ -178,11 +181,59 @@
                     <v-spacer></v-spacer>
                   </v-card-title>
                   <v-card-text>
-                    <p>adjective</p>
-                    <div class="text--primary">
-                      well meaning and kindly.<br />
-                      "a benevolent smile"
-                    </div>
+                    <v-card flat>
+                      <v-card-title class="text-center justify-center py-6">
+                        <h3 class="font-weight-bold display-3">
+                          Protocolo AES
+                        </h3>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-form ref="form3" v-model="valid" lazy-validation>
+                          <v-text-field
+                            v-model="passwordaes"
+                            label="Ingresar contraseña"
+                            :rules="rulesAES"
+                            prepend-icon="mdi-lock"
+                            outlined
+                            required
+                            count
+                            max="5"
+                          ></v-text-field>
+                          <v-file-input
+                            v-model="files"
+                            color="primary"
+                            counter
+                            label="Cifrado de archivos"
+                            placeholder="Escoje tu archivo"
+                            prepend-icon="mdi-paperclip"
+                            outlined
+                            :show-size="1000"
+                          >
+                            <template v-slot:selection="{ index, text }">
+                              <v-chip v-if="index < 2" color="green" dark label>
+                                {{ text }}
+                              </v-chip>
+                            </template>
+                          </v-file-input>
+                        </v-form>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          @click="runCifradoAES()"
+                          large
+                          outlined
+                          color="primary"
+                          >Cifrar
+                          <v-icon right dark>mdi-lock</v-icon>
+                        </v-btn>
+                        <v-btn @click="runDescifradoAES()" large color="primary"
+                          >Descifrar
+                          <v-icon right dark>mdi-lock-open</v-icon>
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                      </v-card-actions>
+                    </v-card>
                   </v-card-text>
                 </v-card>
               </v-card-text>
@@ -335,9 +386,7 @@
                                       Clave encontrada:
                                     </h3>
                                     <v-container
-                                      ><h4
-                                        class="mb-1 green--text"
-                                      >
+                                      ><h4 class="mb-1 green--text">
                                         "{{resultVigenere.pasos[2].clave}}"
                                       </h4>
                                     </v-container>
@@ -351,9 +400,7 @@
                                       Texto descifrado:
                                     </h3>
                                     <v-container
-                                      ><h4
-                                        class="mb-1 green--text"
-                                      >
+                                      ><h4 class="mb-1 green--text">
                                         "{{resultVigenere.pasos[3].descifrado}}"
                                       </h4>
                                     </v-container>
@@ -394,6 +441,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
       new Vue({
         el: "#app",
@@ -419,6 +467,10 @@
           vigenere: "",
           valid: false,
           rules: [(v) => !!v || "Este campo es requerido"],
+          rulesAES: [
+            (v) => !!v || "Este campo es requerido",
+            (v) => v.length == 5 || "La contraseña debe ser de 5 caracteres",
+          ],
           rulesKey: [
             (v) => !!v || "Este campo es requerido",
             (v) => v > 0 || "La llave debe ser mayor que 0 ",
@@ -453,6 +505,9 @@
             },
           ],
           stepper: 0,
+          files: undefined,
+          passwordaes: "",
+          AEScompletado: false,
         },
         watch: {
           tab() {
@@ -527,9 +582,9 @@
                   if (index == 0) {
                     data.mcd = response.data.mcd;
                   } else if (index == 1) {
-                    data.subtextos = response.data.subtextos
+                    data.subtextos = response.data.subtextos;
                   } else if (index == 2) {
-                    data.clave = response.data.clave
+                    data.clave = response.data.clave;
                   }
                 }
                 this.loading = false;
@@ -554,6 +609,54 @@
               }
             });
             return arrayTemp.join(",");
+          },
+          async runCifradoAES() {
+            if (this.$refs.form3.validate() && this.files) {
+              console.log(this.files);
+              var self = this;
+              var reader = new FileReader();
+              reader.onload = async function (e) {
+                var encrypted = await CryptoJS.AES.encrypt(
+                  e.target.result,
+                  self.passwordaes
+                );
+
+                var link = document.createElement("a");
+                link.setAttribute(
+                  "href",
+                  "data:application/octet-stream," + encrypted
+                );
+                link.setAttribute(
+                  "download",
+                  self.files.name.split(".")[0] + "ENCRYPTED"
+                );
+                link.click();
+              };
+              reader.readAsDataURL(self.files);
+            }
+          },
+
+          async runDescifradoAES() {
+            if (this.$refs.form3.validate() && this.files) {
+              console.log(this.files);
+              var self = this;
+              var reader = new FileReader();
+              reader.onload = async function (e) {
+                var decrypted = CryptoJS.AES.decrypt(
+                  e.target.result,
+                  self.passwordaes
+                ).toString(CryptoJS.enc.Latin1);
+
+                var link = document.createElement("a");
+                link.setAttribute("href", decrypted);
+                link.setAttribute(
+                  "download",
+                  self.files.name.split(".")[0] + "DECRYPTED"
+                );
+                link.click();
+              };
+              reader.readAsText(self.files);
+            }
           },
         },
       });
