@@ -2,7 +2,6 @@ var path = require("path")
 var bodyParser = require("body-parser");
 const cors = require("cors")
 var express = require("express")
-const fs = require("fs")
 
 const escitala = require('./scripts/escitala').create()
 const vigenere = require('./scripts/vigenere').create()
